@@ -27,7 +27,13 @@ playSound = (e) ->
 stopSound = (e) ->
   gainNode.gain.value = 0
   $('.fun').removeClass 'active'
+  $('.press').attr 'style', ''
   false
+
+shakeText = (x, y, z) ->
+  $('.press').css {
+    '-webkit-transform': "translate3D(#{x}px, #{y}px, #{x}px)"
+  }
 
 deviceMotionHandler = (eventData) ->
   info = '[X, Y, Z]'
@@ -56,6 +62,9 @@ deviceMotionHandler = (eventData) ->
 
   accelControl = acceleration.x
   oscillator.frequency.value = 200 + accelControl * 50
+
+  if $('.fun').hasClass 'active'
+    shakeText(acceleration.x*5, acceleration.y*5, acceleration.z)
 
 devOrientHandler = (eventData) ->
   map_range = (value, low1, high1, low2, high2) ->

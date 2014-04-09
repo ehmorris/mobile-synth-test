@@ -10,7 +10,9 @@ body {
   background: white;
   display: flex;
   display: -webkit-flex;
+  @include perspective(500px);
   @include position(absolute, 0px 0px 0px 0px);
+  @include transform(translate3D(0px, 0px, 0px));
   -webkit-align-items: center;
 
   &.active {
@@ -32,7 +34,7 @@ body {
     letter-spacing: 2px;
     margin: 0 auto;
     position: relative;
-    @include transition(.15s $ease-out-back);
+    @include transition(.25s $ease-out-back);
 
     .shake {
       font: italic normal 1.75rem/1.2 $primary-font;
@@ -41,7 +43,7 @@ body {
       @include position(absolute, -200% 0px 0 0px);
       text-align: center;
       @include transform(scale(.8));
-      @include transition(.15s $ease-out-back);
+      @include transition(.25s $ease-out-back);
     }
   }
 }
