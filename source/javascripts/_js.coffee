@@ -2,7 +2,7 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext
 context = new AudioContext()
 
 oscillator = context.createOscillator() # Create sound source
-oscillator.type = 1 # Square wave
+oscillator.type = 1
 oscillator.frequency.value = 400
 filter = context.createBiquadFilter()
 
@@ -44,30 +44,7 @@ changeBackgroundColor = (x, y, z) ->
   }
 
 deviceMotionHandler = (eventData) ->
-  info = '[X, Y, Z]'
-  xyz = '[X, Y, Z]'
-
-  # Grab the acceleration from the results
-  a = eventData.acceleration
-  info = xyz.replace('X', a.x)
-  info = info.replace('Y', a.y)
-  info = info.replace('Z', a.z)
-
-  # Grab the acceleration including gravity from the results
   a = eventData.accelerationIncludingGravity
-  info = xyz.replace('X', a.x)
-  info = info.replace('Y', a.y)
-  info = info.replace('Z', a.z)
-
-  # Grab the rotation rate from the results
-  rotation = eventData.rotationRate
-  info = xyz.replace('X', rotation.alpha)
-  info = info.replace('Y', rotation.beta)
-  info = info.replace('Z', rotation.gamma)
-
-  # Grab the refresh interval from the results
-  info = eventData.interval
-
   oscillator.frequency.value = 200 + a.x * 50
 
   if $('.fun').hasClass 'active'
@@ -78,9 +55,6 @@ devOrientHandler = (eventData) ->
   map_range = (value, low1, high1, low2, high2) ->
     low2 + (high2 - low2) * (value - low1) / (high1 - low1)
 
-  # gamma is the left-to-right tilt in degrees, where right is positive
-  tiltLR = eventData.gamma
-
   # beta is the front-to-back tilt in degrees, where front is positive
   tiltFB = eventData.beta
   filterval = map_range(tiltFB, -90, 90, 10000, 0)
@@ -89,8 +63,8 @@ devOrientHandler = (eventData) ->
   # alpha is the compass direction the device is facing in degrees
   dir = eventData.alpha
 
-$('.fun').bind('touchstart', playSound)
-$('.fun').bind('touchend', stopSound)
+$('.fun').bind 'touchstart', playSound
+$('.fun').bind 'touchend', stopSound
 
 window.addEventListener 'devicemotion', deviceMotionHandler, false
 window.addEventListener 'deviceorientation', devOrientHandler, false
