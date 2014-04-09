@@ -6,10 +6,42 @@ body {
 }
 
 .fun {
+  align-items: center;
   background: white;
+  display: flex;
+  display: -webkit-flex;
   @include position(absolute, 0px 0px 0px 0px);
+  -webkit-align-items: center;
 
   &.active {
-    background: lime;
+    background: rgba(255, 255, 0, .4);
+
+    .press {
+      @include transform(scale(.8));
+      
+      .shake {
+        opacity: 1;
+        @include transform(scale(1));
+      }
+    }
+  }
+
+  .press {
+    display: block;
+    font: bold 2.5rem/1.2 $primary-font;
+    letter-spacing: 2px;
+    margin: 0 auto;
+    position: relative;
+    @include transition(.15s $ease-out-back);
+
+    .shake {
+      font: italic normal 1.75rem/1.2 $primary-font;
+      opacity: 0;
+      padding: 1rem;
+      @include position(absolute, -200% 0px 0 0px);
+      text-align: center;
+      @include transform(scale(.8));
+      @include transition(.15s $ease-out-back);
+    }
   }
 }
