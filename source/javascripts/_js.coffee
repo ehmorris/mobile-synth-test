@@ -72,9 +72,6 @@ devOrientHandler = (eventData) ->
   # alpha is the compass direction the device is facing in degrees
   dir = eventData.alpha
 
-  # call our orientation event handler
-  deviceOrientationHandler(tiltLR, tiltFB, dir)
-
 $('.fun').bind('touchstart', playSound)
 $('.fun').bind('touchend', stopSound)
 
