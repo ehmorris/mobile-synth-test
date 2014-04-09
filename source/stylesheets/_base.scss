@@ -1,0 +1,15 @@
+body {
+  font: 400 1em/1.4 $primary-font;
+  margin: 0;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+.fun {
+  background: white;
+  @include position(absolute, 0px 0px 0px 0px);
+
+  &.active {
+    background: lime;
+  }
+}
