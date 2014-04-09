@@ -1,12 +1,8 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext
 context = new AudioContext()
 
-if window.DeviceMotionEvent
-  window.addEventListener 'devicemotion', deviceMotionHandler, false
-
-if window.DeviceOrientationEvent
-  # Listen for the event and handle DeviceOrientationEvent object
-  window.addEventListener 'deviceorientation', devOrientHandler, false
+window.addEventListener 'devicemotion', deviceMotionHandler, false
+window.addEventListener 'deviceorientation', devOrientHandler, false
 
 map_range = (value, low1, high1, low2, high2) ->
   low2 + (high2 - low2) * (value - low1) / (high1 - low1)
@@ -28,14 +24,11 @@ oscillator.active = false
 
 playSound = (e) ->
   e.preventDefault()
-
   if !oscillator.active
     oscillator.noteOn(0) # Play instantly
-
   oscillator.active = true
   gainNode.gain.value = 0.5
   $('.fun').addClass 'active'
-
   false
 
 stopSound = (e) ->
@@ -44,13 +37,12 @@ stopSound = (e) ->
   $('.fun').removeClass 'active'
   false
 
-$('.fun').bind('mousedown', playSound)
-$('.fun').bind('mouseup', stopSound)
-
 $('.fun').bind('touchstart', playSound)
 $('.fun').bind('touchend', stopSound)
 
 deviceMotionHandler = (eventData) ->
+  console.log 'motion handler'
+
   info = '[X, Y, Z]'
   xyz = '[X, Y, Z]'
 
@@ -79,6 +71,8 @@ deviceMotionHandler = (eventData) ->
   oscillator.frequency.value = 200 + accelControl * 50
 
 devOrientHandler = (eventData) ->
+  console.log 'orient handler'
+
   # gamma is the left-to-right tilt in degrees, where right is positive
   tiltLR = eventData.gamma
 
