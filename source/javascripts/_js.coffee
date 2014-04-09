@@ -1,22 +1,22 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext
 context = new AudioContext()
 
+gainNode = context.createGainNode()
+gainNode.gain.value = 0
+gainNode.connect(context.destination)
+
+filter = context.createBiquadFilter()
+filter.type = 0
+filter.frequency.value = 440
+filter.connect(gainNode)
+
 oscillator = context.createOscillator() # Create sound source
 oscillator.type = 1
 oscillator.frequency.value = 400
-filter = context.createBiquadFilter()
-
-gainNode = context.createGainNode()
-gainNode.gain.value = 0
-filter.type = 0
-filter.frequency.value = 440
-
 oscillator.connect(filter) # Connect sound to output
-filter.connect(gainNode)
-gainNode.connect(context.destination)
 oscillator.active = false
 
-playSound = (e) ->
+playSound = ->
   if !oscillator.active
     oscillator.noteOn(0)
   oscillator.active = true
@@ -24,7 +24,7 @@ playSound = (e) ->
   $('.fun').addClass 'active'
   false
 
-stopSound = (e) ->
+stopSound = ->
   gainNode.gain.value = 0
   $('.fun').removeClass 'active'
   $('.press, .fun').attr 'style', ''
