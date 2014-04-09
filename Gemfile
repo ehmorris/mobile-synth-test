@@ -9,3 +9,5 @@ gem 'bourbon'
 gem 'coffee-script'
 
 gem 'haml'
+
+gem 'middleman-gh-pages'
