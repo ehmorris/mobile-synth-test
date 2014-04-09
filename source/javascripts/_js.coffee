@@ -71,7 +71,7 @@ deviceMotionHandler = (eventData) ->
   oscillator.frequency.value = 200 + a.x * 50
 
   if $('.fun').hasClass 'active'
-    shakeText(-a.x*5, -a.y*5, a.z*3)
+    shakeText(a.x*5, -a.y*5, a.z*3)
     changeBackgroundColor(a.x, a.y, a.z)
 
 devOrientHandler = (eventData) ->

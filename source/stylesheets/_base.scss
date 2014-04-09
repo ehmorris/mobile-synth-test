@@ -17,9 +17,9 @@ body {
 
   &.active {
     .press {
-      @include transform(scale(.8));
       color: #fff;
-      
+      @include transform(scale(.8));
+
       .shake {
         opacity: 1;
         @include transform(scale(1));
@@ -35,6 +35,7 @@ body {
     position: relative;
     @include transform(translate3D(0px, 0px, 0px));
     @include transition(.25s $ease-out-back);
+    @include user-select(none);
 
     .shake {
       font: italic normal 1.75rem/1.2 $primary-font;
