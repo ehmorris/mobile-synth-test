@@ -27,7 +27,7 @@ playSound = (e) ->
 stopSound = (e) ->
   gainNode.gain.value = 0
   $('.fun').removeClass 'active'
-  $('.press').attr 'style', ''
+  $('.press, .fun').attr 'style', ''
   false
 
 shakeText = (x, y, z) ->
@@ -35,21 +35,29 @@ shakeText = (x, y, z) ->
     '-webkit-transform': "translate3D(#{x}px, #{y}px, #{x}px)"
   }
 
+changeBackgroundColor = (x, y, z) ->
+  x = Math.abs(Math.floor(x)) * 5
+  y = Math.abs(Math.floor(y)) * 5
+  z = Math.abs(Math.floor(z)) * 5
+  $('.fun').css {
+    'background-color': "rgb(#{x}, #{y}, #{z})"
+  }
+
 deviceMotionHandler = (eventData) ->
   info = '[X, Y, Z]'
   xyz = '[X, Y, Z]'
 
   # Grab the acceleration from the results
-  acceleration = eventData.acceleration
-  info = xyz.replace('X', acceleration.x)
-  info = info.replace('Y', acceleration.y)
-  info = info.replace('Z', acceleration.z)
+  a = eventData.acceleration
+  info = xyz.replace('X', a.x)
+  info = info.replace('Y', a.y)
+  info = info.replace('Z', a.z)
 
   # Grab the acceleration including gravity from the results
-  acceleration = eventData.accelerationIncludingGravity
-  info = xyz.replace('X', acceleration.x)
-  info = info.replace('Y', acceleration.y)
-  info = info.replace('Z', acceleration.z)
+  a = eventData.accelerationIncludingGravity
+  info = xyz.replace('X', a.x)
+  info = info.replace('Y', a.y)
+  info = info.replace('Z', a.z)
 
   # Grab the rotation rate from the results
   rotation = eventData.rotationRate
@@ -60,11 +68,11 @@ deviceMotionHandler = (eventData) ->
   # Grab the refresh interval from the results
   info = eventData.interval
 
-  accelControl = acceleration.x
-  oscillator.frequency.value = 200 + accelControl * 50
+  oscillator.frequency.value = 200 + a.x * 50
 
   if $('.fun').hasClass 'active'
-    shakeText(acceleration.x*5, acceleration.y*5, acceleration.z)
+    shakeText(-a.x*5, -a.y*5, a.z*3)
+    changeBackgroundColor(a.x, a.y, a.z)
 
 devOrientHandler = (eventData) ->
   map_range = (value, low1, high1, low2, high2) ->

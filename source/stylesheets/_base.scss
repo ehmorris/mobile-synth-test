@@ -12,14 +12,13 @@ body {
   display: -webkit-flex;
   @include perspective(500px);
   @include position(absolute, 0px 0px 0px 0px);
-  @include transform(translate3D(0px, 0px, 0px));
+  @include transition(.15s $ease-out-back);
   -webkit-align-items: center;
 
   &.active {
-    background: rgba(255, 255, 0, .4);
-
     .press {
       @include transform(scale(.8));
+      color: #fff;
       
       .shake {
         opacity: 1;
@@ -34,6 +33,7 @@ body {
     letter-spacing: 2px;
     margin: 0 auto;
     position: relative;
+    @include transform(translate3D(0px, 0px, 0px));
     @include transition(.25s $ease-out-back);
 
     .shake {
