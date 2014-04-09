@@ -6,7 +6,7 @@
     %meta{ :content => 'width=device-width,initial-scale=1', 'name' => 'viewport' }
     %title
       = current_page.data.title || 'Mobile Synth'
-    = stylesheet_link_tag 'application'
+    %link{ 'href' => 'stylesheets/application.css', 'rel' => 'stylesheet', 'type' => 'text/css' }
   %body
     = yield
-    = javascript_include_tag 'application'
+    %script{ 'src' => 'javascripts/application.js', 'type' => 'text/javascript' }
