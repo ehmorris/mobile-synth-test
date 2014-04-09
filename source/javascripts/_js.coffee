@@ -60,9 +60,6 @@ devOrientHandler = (eventData) ->
   filterval = map_range(tiltFB, -90, 90, 10000, 0)
   filter.frequency.value = filterval
 
-  # alpha is the compass direction the device is facing in degrees
-  dir = eventData.alpha
-
 $('.fun').bind 'touchstart', playSound
 $('.fun').bind 'touchend', stopSound
 
