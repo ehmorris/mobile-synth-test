@@ -2,7 +2,7 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext
 context = new AudioContext()
 
 oscillator = context.createOscillator() # Create sound source
-oscillator.type = 2 # Square wave
+oscillator.type = 1 # Square wave
 oscillator.frequency.value = 400
 filter = context.createBiquadFilter()
 
